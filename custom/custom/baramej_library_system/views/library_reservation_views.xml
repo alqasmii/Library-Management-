@@ -1,0 +1,38 @@
+<odoo>
+    <record id="view_library_reservation_form" model="ir.ui.view">
+        <field name="name">library.reservation.form</field>
+        <field name="model">library.reservation</field>
+        <field name="arch" type="xml">
+            <form string="Library Book Reservation">
+                <sheet>
+                    <group>
+                        <field name="book_id"/>
+                        <field name="member_id"/>
+                        <field name="reservation_date"/>
+                        <field name="status"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_library_reservation_tree" model="ir.ui.view">
+        <field name="name">library.reservation.tree</field>
+        <field name="model">library.reservation</field>
+        <field name="arch" type="xml">
+            <tree string="Library Reservations">
+                <field name="book_id"/>
+                <field name="member_id"/>
+                <field name="reservation_date"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_library_reservation" model="ir.actions.act_window">
+        <field name="name">Book Reservations</field>
+        <field name="res_model">library.reservation</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="baramej_library_system.view_library_reservation_tree"/>
+    </record>
+</odoo>

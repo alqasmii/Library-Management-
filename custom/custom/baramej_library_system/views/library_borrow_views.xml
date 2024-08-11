@@ -1,0 +1,40 @@
+<odoo>
+<record id="view_library_borrow_form" model="ir.ui.view">
+<field name="name">library.borrow.form</field>
+<field name="model">library.borrow</field>
+<field name="arch" type="xml">
+<form string="Library Borrow">
+<sheet>
+<group>
+<field name="member_id"/>
+<field name="book_id"/>
+<field name="staff_id"/>
+<field name="borrow_date"/>
+<field name="return_date"/>
+<field name="state"/>
+</group>
+</sheet>
+</form>
+</field>
+</record>
+<record id="view_library_borrow_tree" model="ir.ui.view">
+<field name="name">library.borrow.tree</field>
+<field name="model">library.borrow</field>
+<field name="arch" type="xml">
+<tree string="Library Borrow">
+<field name="member_id"/>
+<field name="book_id"/>
+<field name="staff_id"/>
+<field name="borrow_date"/>
+<field name="return_date"/>
+<field name="state"/>
+</tree>
+</field>
+</record>
+<record id="action_library_borrow" model="ir.actions.act_window">
+<field name="name">Borrowings</field>
+<field name="res_model">library.borrow</field>
+<field name="view_mode">tree,form</field>
+<field name="view_id" ref="baramej_library_system.view_library_borrow_tree"/>
+</record>
+</odoo>

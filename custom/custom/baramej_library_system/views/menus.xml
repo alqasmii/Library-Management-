@@ -1,0 +1,15 @@
+<odoo>
+    <menuitem id="menu_library_root" name="Library" sequence="1"/>
+
+    <menuitem id="menu_library_books" name="Books" parent="menu_library_root" sequence="10">
+        <menuitem id="menu_library_books_tree" name="Book List" action="action_library_book" sequence="10"/>
+    </menuitem>
+
+    <menuitem id="menu_library_members" name="Members" parent="menu_library_root" sequence="20">
+        <menuitem id="menu_library_members_tree" name="Member List" action="action_library_member" sequence="10"/>
+    </menuitem>
+
+    <menuitem id="menu_library_borrowings" name="Borrowings" parent="menu_library_root" sequence="30">
+        <menuitem id="menu_library_borrow_tree" name="Borrowing List" action="action_library_borrow" sequence="10"/>
+    </menuitem>
+</odoo>

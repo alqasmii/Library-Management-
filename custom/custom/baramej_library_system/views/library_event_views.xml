@@ -1,0 +1,43 @@
+<odoo>
+    <record id="view_library_event_form" model="ir.ui.view">
+        <field name="name">library.event.form</field>
+        <field name="model">library.event</field>
+        <field name="arch" type="xml">
+            <form string="Library Event">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="event_date"/>
+                    </group>
+                    <group>
+                        <field name="description"/>
+                        <field name="location"/>
+                        <field name="organizer_id"/>
+                        <field name="book_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_library_event_tree" model="ir.ui.view">
+        <field name="name">library.event.tree</field>
+        <field name="model">library.event</field>
+        <field name="arch" type="xml">
+            <tree string="Library Events">
+                <field name="name"/>
+                <field name="event_date"/>
+                <field name="location"/>
+                <field name="organizer_id"/>
+                <field name="book_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_library_event" model="ir.actions.act_window">
+        <field name="name">Library Events</field>
+        <field name="res_model">library.event</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="baramej_library_system.view_library_event_tree"/>
+    </record>
+</odoo>

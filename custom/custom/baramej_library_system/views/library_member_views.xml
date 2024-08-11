@@ -1,0 +1,48 @@
+<odoo>
+    <record id="view_library_member_form" model="ir.ui.view">
+        <field name="name">library.member.form</field>
+        <field name="model">library.member</field>
+        <field name="arch" type="xml">
+            <form string="Library Member">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="member_id"/>
+                        <field name="email"/>
+                        <field name="phone"/>
+                    </group>
+                    <group>
+                        <field name="address"/>
+                        <field name="active"/>
+                    </group>
+                    <group>
+                        <field name="membership_start_date"/>
+                        <field name="membership_end_date"/>
+                        <field name="membership_status" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_library_member_tree" model="ir.ui.view">
+        <field name="name">library.member.tree</field>
+        <field name="model">library.member</field>
+        <field name="arch" type="xml">
+            <tree string="Library Member">
+                <field name="name"/>
+                <field name="member_id"/>
+                <field name="email"/>
+                <field name="active"/>
+                <field name="membership_status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_library_member" model="ir.actions.act_window">
+        <field name="name">Members</field>
+        <field name="res_model">library.member</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="baramej_library_system.view_library_member_tree"/>
+    </record>
+</odoo>

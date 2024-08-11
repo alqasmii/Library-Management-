@@ -1,0 +1,63 @@
+<odoo>
+<record id="view_library_book_form" model="ir.ui.view">
+<field name="name">library.book.form</field>
+<field name="model">library.book</field>
+<field name="arch" type="xml">
+<form string="Library Book">
+<sheet>
+<notebook>
+<page string="Details">
+<group>
+<field name="name"/>
+<field name="author_id"/>
+<field name="isbn"/>
+<field name="category_id"/>
+<field name="publisher_id"/>
+<field name="publication_date"/>
+</group>
+<group>
+<field name="pages"/>
+<field name="language"/>
+<field name="available_copies"/>
+<field name="total_copies" readonly="1"/>
+</group>
+<group>
+<field name="location_id"/>
+</group>
+</page>
+<page string="Reviews">
+<field name="review_ids">
+<tree>
+<field name="member_id"/>
+<field name="rating"/>
+<field name="review"/>
+</tree>
+</field>
+</page>
+</notebook>
+</sheet>
+</form>
+</field>
+</record>
+<record id="view_library_book_tree" model="ir.ui.view">
+<field name="name">library.book.tree</field>
+<field name="model">library.book</field>
+<field name="arch" type="xml">
+<tree string="Library Book">
+<field name="name"/>
+<field name="author_id"/>
+<field name="isbn"/>
+<field name="category_id"/>
+<field name="available_copies"/>
+<field name="total_copies"/>
+<field name="location_id"/>
+</tree>
+</field>
+</record>
+<record id="action_library_book" model="ir.actions.act_window">
+<field name="name">Books</field>
+<field name="res_model">library.book</field>
+<field name="view_mode">tree,form</field>
+<field name="view_id" ref="baramej_library_system.view_library_book_tree"/>
+</record>
+</odoo>
