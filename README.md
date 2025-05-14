@@ -36,18 +36,31 @@ It’s a lightweight base app intended for education, extension, or customizatio
 ```
 
 library\_management/
+
 ├── **init**.py
+
 ├── **manifest**.py
+
 ├── models/
+
 │   ├── **init**.py
+
 │   └── book.py
+
 │   └── member.py
+
 │   └── loan.py
+
 ├── views/
+
 │   ├── book\_views.xml
+
 │   ├── member\_views.xml
+
 │   └── loan\_views.xml
+
 └── security/
+
 ├── ir.model.access.csv
 
 ````
