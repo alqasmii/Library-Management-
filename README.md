@@ -1,6 +1,4 @@
-Thanks for clarifying! Since this project is meant to be an **external Odoo module**, here’s a **clean, professional, and Odoo-specific `README.md`** for your [`Library-Management-`](https://github.com/alqasmii/Library-Management-) repo:
 
----
 
 ```markdown
 # 📚 Odoo Library Management Module
