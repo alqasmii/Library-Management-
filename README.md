@@ -1,4 +1,3 @@
-````markdown
 # 📚 Odoo Library Management Module
 
 [![Odoo](https://img.shields.io/badge/Odoo-v15+-purple?style=for-the-badge&logo=odoo)](https://www.odoo.com)
@@ -7,22 +6,7 @@
 
 > A clean and extendable **Library Management System** built as a standalone Odoo module — ideal for schools, training centers, or any organization managing book lending.
 
----
 
-## 📸 Screenshots
-
-### 📚 Book List View
-![Book List View](https://via.placeholder.com/800x400.png?text=Book+List+View)
-
-### 👥 Member Form
-![Member Form](https://via.placeholder.com/800x400.png?text=Member+Form)
-
-### 🔁 Loan Workflow
-![Loan View](https://via.placeholder.com/800x400.png?text=Loan+Record+Form)
-
-> Replace with actual screenshots from your Odoo UI (under `views/`)
-
----
 
 ## 🧩 Features
 
@@ -57,9 +41,9 @@ erDiagram
         date return_date
         string status
     }
+
 ````
 
----
 
 ## ⚙️ Installation Instructions
 
