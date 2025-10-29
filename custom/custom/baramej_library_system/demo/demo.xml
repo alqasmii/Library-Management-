@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Demo Members -->
+    <record id="demo_member_1" model="library.member">
+        <field name="name">Alice Johnson</field>
+        <field name="member_id">STU001</field>
+        <field name="barcode">MEM001</field>
+        <field name="email">alice.johnson@example.com</field>
+        <field name="phone">555-0101</field>
+        <field name="member_type_id" ref="library_member_type_student"/>
+        <field name="membership_start_date" eval="(DateTime.today() - timedelta(days=180)).strftime('%Y-%m-%d')"/>
+        <field name="membership_end_date" eval="(DateTime.today() + timedelta(days=185)).strftime('%Y-%m-%d')"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="demo_member_2" model="library.member">
+        <field name="name">Dr. Robert Smith</field>
+        <field name="member_id">FAC001</field>
+        <field name="barcode">MEM002</field>
+        <field name="email">robert.smith@example.com</field>
+        <field name="phone">555-0102</field>
+        <field name="member_type_id" ref="library_member_type_faculty"/>
+        <field name="membership_start_date" eval="(DateTime.today() - timedelta(days=365)).strftime('%Y-%m-%d')"/>
+        <field name="membership_end_date" eval="(DateTime.today() + timedelta(days=365)).strftime('%Y-%m-%d')"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="demo_member_3" model="library.member">
+        <field name="name">Emma Wilson</field>
+        <field name="member_id">STF001</field>
+        <field name="barcode">MEM003</field>
+        <field name="email">emma.wilson@example.com</field>
+        <field name="phone">555-0103</field>
+        <field name="member_type_id" ref="library_member_type_staff"/>
+        <field name="membership_start_date" eval="(DateTime.today() - timedelta(days=90)).strftime('%Y-%m-%d')"/>
+        <field name="membership_end_date" eval="(DateTime.today() + timedelta(days=275)).strftime('%Y-%m-%d')"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="demo_member_4" model="library.member">
+        <field name="name">John Doe</field>
+        <field name="member_id">PUB001</field>
+        <field name="barcode">MEM004</field>
+        <field name="email">john.doe@example.com</field>
+        <field name="phone">555-0104</field>
+        <field name="member_type_id" ref="library_member_type_public"/>
+        <field name="membership_start_date" eval="(DateTime.today() - timedelta(days=30)).strftime('%Y-%m-%d')"/>
+        <field name="membership_end_date" eval="(DateTime.today() + timedelta(days=335)).strftime('%Y-%m-%d')"/>
+        <field name="active" eval="True"/>
+    </record>
+
+    <!-- Demo Books (assuming authors/categories exist) -->
+    <record id="demo_book_1" model="library.book">
+        <field name="name">Introduction to Python Programming</field>
+        <field name="barcode">BOOK001</field>
+        <field name="isbn">978-0-13-468599-1</field>
+        <field name="available_copies">3</field>
+        <field name="pages">600</field>
+        <field name="language">English</field>
+        <field name="publication_date">2020-01-15</field>
+    </record>
+
+    <record id="demo_book_2" model="library.book">
+        <field name="name">Data Structures and Algorithms</field>
+        <field name="barcode">BOOK002</field>
+        <field name="isbn">978-0-262-03384-8</field>
+        <field name="available_copies">2</field>
+        <field name="pages">1312</field>
+        <field name="language">English</field>
+        <field name="publication_date">2009-07-31</field>
+    </record>
+
+    <record id="demo_book_3" model="library.book">
+        <field name="name">Clean Code: A Handbook of Agile Software Craftsmanship</field>
+        <field name="barcode">BOOK003</field>
+        <field name="isbn">978-0-13-235088-4</field>
+        <field name="available_copies">1</field>
+        <field name="pages">464</field>
+        <field name="language">English</field>
+        <field name="publication_date">2008-08-01</field>
+    </record>
+
+    <record id="demo_book_4" model="library.book">
+        <field name="name">The Pragmatic Programmer</field>
+        <field name="barcode">BOOK004</field>
+        <field name="isbn">978-0-13-595705-9</field>
+        <field name="available_copies">0</field>
+        <field name="pages">352</field>
+        <field name="language">English</field>
+        <field name="publication_date">2019-09-13</field>
+    </record>
+
+    <!-- Demo Borrowings -->
+    <record id="demo_borrow_1" model="library.borrow">
+        <field name="name">LB00001</field>
+        <field name="member_id" ref="demo_member_1"/>
+        <field name="book_id" ref="demo_book_1"/>
+        <field name="borrow_date" eval="(DateTime.today() - timedelta(days=7)).strftime('%Y-%m-%d')"/>
+        <field name="due_date" eval="(DateTime.today() + timedelta(days=7)).strftime('%Y-%m-%d')"/>
+        <field name="state">borrowed</field>
+    </record>
+
+    <record id="demo_borrow_2" model="library.borrow">
+        <field name="name">LB00002</field>
+        <field name="member_id" ref="demo_member_2"/>
+        <field name="book_id" ref="demo_book_2"/>
+        <field name="borrow_date" eval="(DateTime.today() - timedelta(days=20)).strftime('%Y-%m-%d')"/>
+        <field name="due_date" eval="(DateTime.today() + timedelta(days=10)).strftime('%Y-%m-%d')"/>
+        <field name="state">borrowed</field>
+    </record>
+
+    <record id="demo_borrow_3" model="library.borrow">
+        <field name="name">LB00003</field>
+        <field name="member_id" ref="demo_member_3"/>
+        <field name="book_id" ref="demo_book_4"/>
+        <field name="borrow_date" eval="(DateTime.today() - timedelta(days=30)).strftime('%Y-%m-%d')"/>
+        <field name="due_date" eval="(DateTime.today() - timedelta(days=9)).strftime('%Y-%m-%d')"/>
+        <field name="state">overdue</field>
+    </record>
+
+    <record id="demo_borrow_4" model="library.borrow">
+        <field name="name">LB00004</field>
+        <field name="member_id" ref="demo_member_1"/>
+        <field name="book_id" ref="demo_book_3"/>
+        <field name="borrow_date" eval="(DateTime.today() - timedelta(days=25)).strftime('%Y-%m-%d')"/>
+        <field name="due_date" eval="(DateTime.today() - timedelta(days=11)).strftime('%Y-%m-%d')"/>
+        <field name="return_date" eval="(DateTime.today() - timedelta(days=10)).strftime('%Y-%m-%d')"/>
+        <field name="state">returned</field>
+    </record>
+</odoo>

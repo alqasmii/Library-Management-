@@ -1,63 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-<record id="view_library_book_form" model="ir.ui.view">
-<field name="name">library.book.form</field>
-<field name="model">library.book</field>
-<field name="arch" type="xml">
-<form string="Library Book">
-<sheet>
-<notebook>
-<page string="Details">
-<group>
-<field name="name"/>
-<field name="author_id"/>
-<field name="isbn"/>
-<field name="category_id"/>
-<field name="publisher_id"/>
-<field name="publication_date"/>
-</group>
-<group>
-<field name="pages"/>
-<field name="language"/>
-<field name="available_copies"/>
-<field name="total_copies" readonly="1"/>
-</group>
-<group>
-<field name="location_id"/>
-</group>
-</page>
-<page string="Reviews">
-<field name="review_ids">
-<tree>
-<field name="member_id"/>
-<field name="rating"/>
-<field name="review"/>
-</tree>
-</field>
-</page>
-</notebook>
-</sheet>
-</form>
-</field>
-</record>
-<record id="view_library_book_tree" model="ir.ui.view">
-<field name="name">library.book.tree</field>
-<field name="model">library.book</field>
-<field name="arch" type="xml">
-<tree string="Library Book">
-<field name="name"/>
-<field name="author_id"/>
-<field name="isbn"/>
-<field name="category_id"/>
-<field name="available_copies"/>
-<field name="total_copies"/>
-<field name="location_id"/>
-</tree>
-</field>
-</record>
-<record id="action_library_book" model="ir.actions.act_window">
-<field name="name">Books</field>
-<field name="res_model">library.book</field>
-<field name="view_mode">tree,form</field>
-<field name="view_id" ref="baramej_library_system.view_library_book_tree"/>
-</record>
+    <!-- Book Form View -->
+    <record id="view_library_book_form" model="ir.ui.view">
+        <field name="name">library.book.form</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <form string="Library Book">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" name="action_view_borrows" icon="fa-book">
+                            <field name="active_borrow_count" widget="statinfo" string="Borrowed"/>
+                        </button>
+                        <button class="oe_stat_button" type="object" name="action_view_borrows" icon="fa-check-circle" attrs="{'invisible': [('is_available', '=', False)]}">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Available</span>
+                                <span class="o_stat_value"><field name="available_copies"/></span>
+                            </div>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="author_id" options="{'no_create': True}"/>
+                            <field name="isbn"/>
+                            <field name="barcode"/>
+                            <field name="category_id" options="{'no_create': True}"/>
+                        </group>
+                        <group>
+                            <field name="publisher_id" options="{'no_create': True}"/>
+                            <field name="publication_date"/>
+                            <field name="pages"/>
+                            <field name="language"/>
+                            <field name="location_id" options="{'no_create': True}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="available_copies"/>
+                            <field name="total_copies" readonly="1"/>
+                            <field name="is_available" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Borrowing History">
+                            <field name="borrow_ids" readonly="1">
+                                <tree decoration-danger="state=='overdue'">
+                                    <field name="name"/>
+                                    <field name="member_id"/>
+                                    <field name="borrow_date"/>
+                                    <field name="due_date"/>
+                                    <field name="return_date"/>
+                                    <field name="state" widget="badge"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Reviews">
+                            <field name="review_ids">
+                                <tree>
+                                    <field name="member_id"/>
+                                    <field name="rating"/>
+                                    <field name="review"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Book Tree View -->
+    <record id="view_library_book_tree" model="ir.ui.view">
+        <field name="name">library.book.tree</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <tree string="Library Books" decoration-success="is_available==True" decoration-muted="is_available==False">
+                <field name="name"/>
+                <field name="author_id"/>
+                <field name="isbn"/>
+                <field name="category_id"/>
+                <field name="available_copies"/>
+                <field name="total_copies"/>
+                <field name="is_available" invisible="1"/>
+                <field name="location_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Book Kanban View -->
+    <record id="view_library_book_kanban" model="ir.ui.view">
+        <field name="name">library.book.kanban</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="id"/>
+                <field name="name"/>
+                <field name="author_id"/>
+                <field name="category_id"/>
+                <field name="available_copies"/>
+                <field name="is_available"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_top">
+                                <div class="o_kanban_record_headings">
+                                    <strong class="o_kanban_record_title"><field name="name"/></strong>
+                                    <br/>
+                                    <span class="text-muted">by <field name="author_id"/></span>
+                                </div>
+                                <span t-if="record.is_available.raw_value" class="badge badge-success">Available</span>
+                                <span t-if="!record.is_available.raw_value" class="badge badge-danger">Borrowed</span>
+                            </div>
+                            <div class="o_kanban_record_body">
+                                <div><field name="category_id"/></div>
+                                <div>📚 Available: <strong><field name="available_copies"/></strong></div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Book Search View -->
+    <record id="view_library_book_search" model="ir.ui.view">
+        <field name="name">library.book.search</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <search string="Search Books">
+                <field name="name"/>
+                <field name="author_id"/>
+                <field name="isbn"/>
+                <field name="category_id"/>
+                <filter string="Available" name="available" domain="[('available_copies','>',0)]"/>
+                <filter string="Not Available" name="not_available" domain="[('available_copies','=',0)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Author" name="group_author" context="{'group_by':'author_id'}"/>
+                    <filter string="Category" name="group_category" context="{'group_by':'category_id'}"/>
+                    <filter string="Location" name="group_location" context="{'group_by':'location_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Book Action -->
+    <record id="action_library_book" model="ir.actions.act_window">
+        <field name="name">Books</field>
+        <field name="res_model">library.book</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add a new book to the library
+            </p>
+            <p>
+                Add books to track their availability and borrowing history.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu Item -->
+    <menuitem id="library_book_menu"
+              name="All Books"
+              parent="library_books_menu"
+              action="action_library_book"
+              sequence="10"/>
 </odoo>

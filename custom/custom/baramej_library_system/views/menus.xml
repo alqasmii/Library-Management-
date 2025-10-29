@@ -1,15 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <menuitem id="menu_library_root" name="Library" sequence="1"/>
+    <!-- Root Menu -->
+    <menuitem id="library_main_menu" name="Library" sequence="10" web_icon="baramej_library_system,static/description/icon.png"/>
 
-    <menuitem id="menu_library_books" name="Books" parent="menu_library_root" sequence="10">
-        <menuitem id="menu_library_books_tree" name="Book List" action="action_library_book" sequence="10"/>
-    </menuitem>
+    <!-- Dashboard Submenu -->
+    <!-- Defined in library_dashboard_views.xml -->
 
-    <menuitem id="menu_library_members" name="Members" parent="menu_library_root" sequence="20">
-        <menuitem id="menu_library_members_tree" name="Member List" action="action_library_member" sequence="10"/>
-    </menuitem>
-
-    <menuitem id="menu_library_borrowings" name="Borrowings" parent="menu_library_root" sequence="30">
-        <menuitem id="menu_library_borrow_tree" name="Borrowing List" action="action_library_borrow" sequence="10"/>
-    </menuitem>
+    <!-- Books Submenu -->
+    <menuitem id="library_books_menu" name="Books" parent="library_main_menu" sequence="20"/>
+    
+    <!-- Members Submenu -->
+    <menuitem id="library_members_menu" name="Members" parent="library_main_menu" sequence="30"/>
+    
+    <!-- Borrowings Submenu -->
+    <menuitem id="library_borrowings_menu" name="Borrowings" parent="library_main_menu" sequence="40"/>
+    
+    <!-- Configuration Submenu -->
+    <menuitem id="library_config_menu" name="Configuration" parent="library_main_menu" sequence="100" groups="library_group_manager"/>
 </odoo>
+

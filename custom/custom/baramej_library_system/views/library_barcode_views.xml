@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Barcode Scanner Form View -->
+    <record id="library_barcode_scan_view_form" model="ir.ui.view">
+        <field name="name">library.barcode.scan.form</field>
+        <field name="model">library.barcode.scan</field>
+        <field name="arch" type="xml">
+            <form string="Barcode Scanner">
+                <group>
+                    <group>
+                        <field name="member_barcode" placeholder="Scan member barcode..." autofocus="1"/>
+                        <field name="book_barcode" placeholder="Scan book barcode..."/>
+                    </group>
+                    <group>
+                        <field name="operation"/>
+                    </group>
+                </group>
+                <group attrs="{'invisible': [('result_message', '=', False)]}">
+                    <field name="result_message" nolabel="1" readonly="1" class="oe_inline"/>
+                </group>
+                <footer>
+                    <button string="Process Scan" name="action_process_scan" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Barcode Scanner Action -->
+    <record id="library_barcode_scan_action" model="ir.actions.act_window">
+        <field name="name">Scan & Go</field>
+        <field name="res_model">library.barcode.scan</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_library_borrow"/>
+    </record>
+
+    <!-- Menu Item -->
+    <menuitem id="library_barcode_scan_menu"
+              name="Scan & Go"
+              parent="library_main_menu"
+              action="library_barcode_scan_action"
+              sequence="15"/>
+</odoo>

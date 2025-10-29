@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Loan Graph View -->
+    <record id="library_borrow_view_graph" model="ir.ui.view">
+        <field name="name">library.borrow.graph</field>
+        <field name="model">library.borrow</field>
+        <field name="arch" type="xml">
+            <graph string="Loan Statistics" type="bar">
+                <field name="state" type="row"/>
+                <field name="borrow_date" type="col" interval="month"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Loan Pivot View -->
+    <record id="library_borrow_view_pivot" model="ir.ui.view">
+        <field name="name">library.borrow.pivot</field>
+        <field name="model">library.borrow</field>
+        <field name="arch" type="xml">
+            <pivot string="Loan Analysis">
+                <field name="member_type_id" type="row"/>
+                <field name="state" type="col"/>
+                <field name="fine_amount" type="measure"/>
+                <field name="overdue_days" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- Dashboard Action -->
+    <record id="library_dashboard_action" model="ir.actions.act_window">
+        <field name="name">Library Dashboard</field>
+        <field name="res_model">library.borrow</field>
+        <field name="view_mode">graph,pivot,tree,form</field>
+        <field name="context">{
+            'search_default_borrowed': 1,
+            'search_default_this_month': 1,
+        }</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_empty_folder">
+                No loan data available
+            </p>
+            <p>
+                Your library dashboard will show statistics once you have loan records.
+            </p>
+        </field>
+    </record>
+
+    <!-- Dashboard Search View -->
+    <record id="library_borrow_view_search_dashboard" model="ir.ui.view">
+        <field name="name">library.borrow.search.dashboard</field>
+        <field name="model">library.borrow</field>
+        <field name="arch" type="xml">
+            <search string="Search Loans">
+                <field name="name"/>
+                <field name="member_id"/>
+                <field name="book_id"/>
+                <field name="state"/>
+                <filter string="Borrowed" name="borrowed" domain="[('state','=','borrowed')]"/>
+                <filter string="Overdue" name="overdue" domain="[('state','=','overdue')]"/>
+                <filter string="Returned" name="returned" domain="[('state','=','returned')]"/>
+                <separator/>
+                <filter string="This Month" name="this_month"
+                        domain="[('borrow_date','&gt;=', (context_today() - relativedelta(day=1)).strftime('%Y-%m-%d')),
+                                 ('borrow_date','&lt;', (context_today() + relativedelta(months=1, day=1)).strftime('%Y-%m-%d'))]"/>
+                <filter string="This Year" name="this_year"
+                        domain="[('borrow_date','&gt;=', (context_today() - relativedelta(month=1, day=1)).strftime('%Y-%m-%d'))]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Member" name="group_member" context="{'group_by':'member_id'}"/>
+                    <filter string="Book" name="group_book" context="{'group_by':'book_id'}"/>
+                    <filter string="State" name="group_state" context="{'group_by':'state'}"/>
+                    <filter string="Member Type" name="group_member_type" context="{'group_by':'member_type_id'}"/>
+                    <filter string="Borrow Month" name="group_month" context="{'group_by':'borrow_date:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- KPI Dashboard (Optional Board View) -->
+    <record id="library_dashboard_board" model="ir.actions.act_window">
+        <field name="name">Library KPIs</field>
+        <field name="res_model">library.borrow</field>
+        <field name="view_mode">kanban</field>
+        <field name="context">{}</field>
+    </record>
+
+    <!-- Dashboard Menu -->
+    <menuitem id="library_dashboard_menu"
+              name="Dashboard"
+              parent="library_main_menu"
+              action="library_dashboard_action"
+              sequence="5"/>
+</odoo>

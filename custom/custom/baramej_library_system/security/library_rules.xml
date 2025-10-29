@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Record Rules for Library Models -->
+    
+    <!-- Borrow Rules: Users see only their own loans -->
+    <record id="library_borrow_rule_user" model="ir.rule">
+        <field name="name">Library Borrow: User can see own loans</field>
+        <field name="model_id" ref="model_library_borrow"/>
+        <field name="domain_force">[('member_id.id', '=', user.partner_id.id)]</field>
+        <field name="groups" eval="[(4, ref('library_group_user'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="library_borrow_rule_librarian" model="ir.rule">
+        <field name="name">Library Borrow: Librarian sees all</field>
+        <field name="model_id" ref="model_library_borrow"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('library_group_librarian'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- Member Rules: Users see only their own member record -->
+    <record id="library_member_rule_user" model="ir.rule">
+        <field name="name">Library Member: User sees own record</field>
+        <field name="model_id" ref="model_library_member"/>
+        <field name="domain_force">[('id', '=', user.partner_id.id)]</field>
+        <field name="groups" eval="[(4, ref('library_group_user'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="library_member_rule_librarian" model="ir.rule">
+        <field name="name">Library Member: Librarian sees all</field>
+        <field name="model_id" ref="model_library_member"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4, ref('library_group_librarian'))]"/>
+    </record>
+
+</odoo>

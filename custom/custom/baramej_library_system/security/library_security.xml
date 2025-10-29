@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Security Groups -->
+    <record id="library_group_user" model="res.groups">
+        <field name="name">Library User</field>
+        <field name="category_id" ref="base.module_category_services"/>
+        <field name="comment">Library members can view their own loans and browse books</field>
+    </record>
+
+    <record id="library_group_librarian" model="res.groups">
+        <field name="name">Library Librarian</field>
+        <field name="category_id" ref="base.module_category_services"/>
+        <field name="implied_ids" eval="[(4, ref('library_group_user'))]"/>
+        <field name="comment">Librarians can manage all library operations</field>
+    </record>
+
+    <record id="library_group_manager" model="res.groups">
+        <field name="name">Library Manager</field>
+        <field name="category_id" ref="base.module_category_services"/>
+        <field name="implied_ids" eval="[(4, ref('library_group_librarian'))]"/>
+        <field name="comment">Managers have full access to all library features and settings</field>
+    </record>
+</odoo>

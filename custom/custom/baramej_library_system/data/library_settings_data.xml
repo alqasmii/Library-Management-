@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Sequence for Borrow Reference -->
+    <record id="library_borrow_sequence" model="ir.sequence">
+        <field name="name">Library Borrow Sequence</field>
+        <field name="code">library.borrow</field>
+        <field name="prefix">LB</field>
+        <field name="padding">5</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+</odoo>

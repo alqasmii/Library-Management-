@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Default Member Types -->
+    <record id="library_member_type_student" model="library.member.type">
+        <field name="name">Student</field>
+        <field name="code">STUDENT</field>
+        <field name="sequence">10</field>
+        <field name="max_concurrent_loans">3</field>
+        <field name="max_loan_days">14</field>
+        <field name="fine_per_day">0.50</field>
+        <field name="color">3</field>
+        <field name="description">Standard student membership with 3 book limit for 14 days</field>
+    </record>
+
+    <record id="library_member_type_faculty" model="library.member.type">
+        <field name="name">Faculty</field>
+        <field name="code">FACULTY</field>
+        <field name="sequence">20</field>
+        <field name="max_concurrent_loans">10</field>
+        <field name="max_loan_days">30</field>
+        <field name="fine_per_day">0.25</field>
+        <field name="color">2</field>
+        <field name="description">Faculty membership with 10 book limit for 30 days</field>
+    </record>
+
+    <record id="library_member_type_staff" model="library.member.type">
+        <field name="name">Staff</field>
+        <field name="code">STAFF</field>
+        <field name="sequence">30</field>
+        <field name="max_concurrent_loans">5</field>
+        <field name="max_loan_days">21</field>
+        <field name="fine_per_day">0.30</field>
+        <field name="color">5</field>
+        <field name="description">Staff membership with 5 book limit for 21 days</field>
+    </record>
+
+    <record id="library_member_type_public" model="library.member.type">
+        <field name="name">Public</field>
+        <field name="code">PUBLIC</field>
+        <field name="sequence">40</field>
+        <field name="max_concurrent_loans">2</field>
+        <field name="max_loan_days">7</field>
+        <field name="fine_per_day">1.00</field>
+        <field name="color">1</field>
+        <field name="description">Public membership with 2 book limit for 7 days</field>
+    </record>
+</odoo>

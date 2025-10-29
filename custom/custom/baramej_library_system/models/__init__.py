@@ -1,3 +1,4 @@
+from . import library_member_type
 from . import library_book
 from . import library_borrow
 from . import library_member
@@ -9,3 +10,4 @@ from . import library_staff
 from . import library_event
 from . import library_reservation
 from . import library_author
+from . import library_barcode_scan

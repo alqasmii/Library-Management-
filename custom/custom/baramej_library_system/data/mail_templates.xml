@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Email Template: Due Soon Reminder -->
+    <record id="mail_template_loan_due_soon" model="mail.template">
+        <field name="name">Library: Loan Due Soon</field>
+        <field name="model_id" ref="model_library_borrow"/>
+        <field name="subject">Reminder: Your library book "${object.book_id.name}" is due in 2 days</field>
+        <field name="email_from">${(object.company_id.email or user.email)|safe}</field>
+        <field name="email_to">${object.member_id.email}</field>
+        <field name="body_html" type="html">
+<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+    <h2 style="color: #0066cc;">📚 Library Book Due Soon</h2>
+    <p>Dear ${object.member_id.name},</p>
+    <p>This is a friendly reminder that the following book is due in <strong>2 days</strong>:</p>
+    
+    <div style="background-color: #f0f8ff; border-left: 4px solid #0066cc; padding: 15px; margin: 20px 0;">
+        <p style="margin: 5px 0;"><strong>Book:</strong> ${object.book_id.name}</p>
+        <p style="margin: 5px 0;"><strong>Author:</strong> ${object.book_id.author_id.name}</p>
+        <p style="margin: 5px 0;"><strong>Borrowed:</strong> ${format_date(object.borrow_date)}</p>
+        <p style="margin: 5px 0;"><strong>Due Date:</strong> ${format_date(object.due_date)}</p>
+        <p style="margin: 5px 0;"><strong>Reference:</strong> ${object.name}</p>
+    </div>
+    
+    <p>Please return the book by the due date to avoid late fees of <strong>$${object.member_type_id.fine_per_day} per day</strong>.</p>
+    
+    <p>Thank you for using our library!</p>
+    
+    <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;"/>
+    <p style="font-size: 12px; color: #666;">
+        This is an automated message. Please do not reply to this email.
+    </p>
+</div>
+        </field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+
+    <!-- Email Template: Overdue Reminder -->
+    <record id="mail_template_loan_overdue" model="mail.template">
+        <field name="name">Library: Loan Overdue</field>
+        <field name="model_id" ref="model_library_borrow"/>
+        <field name="subject">⚠️ OVERDUE: Your library book "${object.book_id.name}" is ${object.overdue_days} days overdue</field>
+        <field name="email_from">${(object.company_id.email or user.email)|safe}</field>
+        <field name="email_to">${object.member_id.email}</field>
+        <field name="body_html" type="html">
+<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+    <h2 style="color: #cc0000;">⚠️ Library Book OVERDUE</h2>
+    <p>Dear ${object.member_id.name},</p>
+    <p>Your borrowed book is now <strong style="color: #cc0000;">OVERDUE</strong>. Please return it as soon as possible.</p>
+    
+    <div style="background-color: #fff0f0; border-left: 4px solid #cc0000; padding: 15px; margin: 20px 0;">
+        <p style="margin: 5px 0;"><strong>Book:</strong> ${object.book_id.name}</p>
+        <p style="margin: 5px 0;"><strong>Author:</strong> ${object.book_id.author_id.name}</p>
+        <p style="margin: 5px 0;"><strong>Borrowed:</strong> ${format_date(object.borrow_date)}</p>
+        <p style="margin: 5px 0;"><strong>Due Date:</strong> ${format_date(object.due_date)}</p>
+        <p style="margin: 5px 0;"><strong>Reference:</strong> ${object.name}</p>
+        <p style="margin: 5px 0; color: #cc0000;"><strong>Overdue Days:</strong> ${object.overdue_days}</p>
+        <p style="margin: 5px 0; color: #cc0000;"><strong>Fine Amount:</strong> $${object.fine_amount}</p>
+    </div>
+    
+    <p>Late fees: <strong>$${object.member_type_id.fine_per_day} per day</strong></p>
+    <p>Current outstanding fine: <strong style="color: #cc0000;">$${object.fine_amount}</strong></p>
+    
+    <p>Please return the book immediately to your nearest library branch.</p>
+    
+    <p>If you have already returned this book, please contact us.</p>
+    
+    <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;"/>
+    <p style="font-size: 12px; color: #666;">
+        This is an automated message. Please do not reply to this email.
+    </p>
+</div>
+        </field>
+        <field name="auto_delete" eval="True"/>
+    </record>
+</odoo>
